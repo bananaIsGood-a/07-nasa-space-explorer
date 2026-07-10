@@ -28,6 +28,9 @@ getImagesButton.addEventListener('click', () => {
   const startDate = startInput.value;
   const endDate = endInput.value;
 
+  // Show a loading message while we wait for the data to come back
+  showLoadingMessage();
+
   // Build the API URL with our key and date range
   const apodUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&start_date=${startDate}&end_date=${endDate}`;
 
@@ -39,9 +42,19 @@ getImagesButton.addEventListener('click', () => {
     });
 });
 
+// Replace the gallery content with a loading message
+function showLoadingMessage() {
+  gallery.innerHTML = `
+    <div class="loading">
+      <div class="loading-icon">🔄</div>
+      <p>Loading space photos...</p>
+    </div>
+  `;
+}
+
 // Build and display the gallery from an array of APOD entries
 function displayGallery(images) {
-  // Clear out the placeholder or any previous gallery items
+  // Clear out the loading message or any previous gallery items
   gallery.innerHTML = '';
 
   // Loop through each image object and create a gallery item for it

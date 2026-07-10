@@ -203,3 +203,16 @@ button:hover {
 .modal-close:hover {
   color: #212121;
 }
+
+/* Loading message (matches placeholder styling) */
+.loading {
+  flex: 1 1 100%;
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+
+.loading-icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
