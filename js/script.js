@@ -27,7 +27,26 @@ getImagesButton.addEventListener('click', () => {
   fetch(apodUrl)
     .then((response) => response.json())
     .then((data) => {
-      // For now, just log the data so we can see what we get back
-      console.log(data);
+      displayGallery(data);
     });
 });
+
+// Build and display the gallery from an array of APOD entries
+function displayGallery(images) {
+  // Clear out the placeholder or any previous gallery items
+  gallery.innerHTML = '';
+
+  // Loop through each image object and create a gallery item for it
+  images.forEach((image) => {
+    const item = document.createElement('div');
+    item.classList.add('gallery-item');
+
+    item.innerHTML = `
+      <img src="${image.url}" alt="${image.title}" />
+      <p><strong>${image.title}</strong></p>
+      <p>${image.date}</p>
+    `;
+
+    gallery.appendChild(item);
+  });
+}
