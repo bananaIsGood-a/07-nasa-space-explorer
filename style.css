@@ -7,8 +7,9 @@
 
 /* Base page styles */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f1f1f1;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background-color: #061f4a;
+  color: #f1f1f1;
   padding: 20px;
 }
 
@@ -26,12 +27,14 @@ body {
   padding-top: 20px;
   padding-bottom: 20px;
   margin-bottom: 20px;
+  border-bottom: 3px solid #dd361c;
 }
 
 h1 {
-  font-family: Verdana, sans-serif;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
   font-weight: bold;
-  color: #212121;
+  letter-spacing: 1px;
+  color: #ffffff;
 }
 
 /* Logo */
@@ -53,9 +56,9 @@ h1 {
 /* Inputs and buttons */
 input[type="date"],
 button {
-  font-family: Arial, sans-serif;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
   font-weight: normal;
-  color: #666;
+  color: #333;
   padding: 10px 15px;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -66,12 +69,14 @@ button {
 
 /* Button specific */
 button {
-  background-color: #d3d3d3;
-  color: black;
+  background-color: #0b3d91;
+  color: #ffffff;
+  font-weight: bold;
+  border: none;
   cursor: pointer;
 }
 button:hover {
-  background-color: #bfbfbf;
+  background-color: #dd361c;
 }
 
 /* Stack horizontally on wider screens */
@@ -85,6 +90,17 @@ button:hover {
   button {
     width: auto;
   }
+}
+
+/* Random space fact banner */
+.space-fact {
+  background-color: #131a2b;
+  border-left: 4px solid #dd361c;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  font-size: 15px;
+  color: #e0e0e0;
 }
 
 /* Gallery flex container */
@@ -101,10 +117,10 @@ button:hover {
   flex: 1 1 100%;  /* full width by default */
   min-width: 280px;
   max-width: 500px;
-  background: white;
+  background: #131a2b;
   padding: 10px;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -122,12 +138,18 @@ button:hover {
   height: 200px;
   object-fit: cover;
   border-radius: 4px;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item img:hover {
+  transform: scale(1.08);
 }
 
 .gallery-item p {
   margin-top: 10px;
   padding: 5px;
   font-size: 14px;
+  color: #e0e0e0;
 }
 
 /* Placeholder content */
@@ -135,12 +157,44 @@ button:hover {
   flex: 1 1 100%;
   text-align: center;
   padding: 40px;
-  color: #666;
+  color: #999;
 }
 
 .placeholder-icon {
   font-size: 48px;
   margin-bottom: 20px;
+}
+
+/* Loading message (matches placeholder styling) */
+.loading {
+  flex: 1 1 100%;
+  text-align: center;
+  padding: 40px;
+  color: #999;
+}
+
+.loading-icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+/* Placeholder shown in the gallery for video entries */
+.video-placeholder {
+  width: 100%;
+  height: 200px;
+  background-color: #000000;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  text-align: center;
+}
+
+.video-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
 }
 
 /* Modal overlay */
@@ -150,7 +204,7 @@ button:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.85);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -163,7 +217,9 @@ button:hover {
 
 /* Modal content box */
 .modal-content {
-  background: white;
+  background: #131a2b;
+  color: #f1f1f1;
+  border-top: 3px solid #dd361c;
   border-radius: 8px;
   padding: 20px;
   max-width: 700px;
@@ -173,7 +229,8 @@ button:hover {
   position: relative;
 }
 
-.modal-content img {
+.modal-content img,
+iframe#modalImage {
   width: 100%;
   max-height: 400px;
   object-fit: contain;
@@ -183,11 +240,18 @@ button:hover {
 
 .modal-content h2 {
   margin-bottom: 10px;
+  color: #ffffff;
 }
 
 .modal-content p {
   margin-bottom: 10px;
   line-height: 1.5;
+  color: #cfd4e0;
+}
+
+/* Video iframe inside the modal */
+iframe#modalImage {
+  height: 300px;
 }
 
 /* Close button */
@@ -197,76 +261,22 @@ button:hover {
   right: 15px;
   font-size: 28px;
   cursor: pointer;
-  color: #666;
+  color: #999;
 }
 
 .modal-close:hover {
-  color: #212121;
+  color: #dd361c;
 }
 
-/* Loading message (matches placeholder styling) */
-.loading {
-  flex: 1 1 100%;
-  text-align: center;
-  padding: 40px;
-  color: #666;
-}
-
-.loading-icon {
-  font-size: 48px;
-  margin-bottom: 20px;
-}
-
-/* Placeholder shown in the gallery for video entries */
-.video-placeholder {
-  width: 100%;
-  height: 200px;
-  background-color: #212121;
-  border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-align: center;
-}
-
-.video-icon {
-  font-size: 40px;
-  margin-bottom: 10px;
-}
-
-/* Video iframe inside the modal */
-#modalImage[src] {
-  width: 100%;
-}
-
-iframe#modalImage {
-  width: 100%;
-  height: 300px;
-  margin-bottom: 15px;
-  border-radius: 4px;
-}
-
-/* Random space fact banner */
-.space-fact {
-  background-color: #e8f0fe;
-  border-left: 4px solid #666;
-  padding: 15px 20px;
-  margin-bottom: 20px;
-  border-radius: 4px;
-  font-size: 15px;
-  color: #333;
-}
-
-.gallery-item img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 4px;
-  transition: transform 0.3s ease;
-}
-
-.gallery-item img:hover {
-  transform: scale(1.08);
+.video_link {
+display: inline-block;
+background: linear-gradient(135deg, #105bd8 0%, #0d4fb5 100%);
+color: white;
+padding: 12px 24px;
+border-radius: 8px;
+text-decoration: none;
+font-weight: 600;
+transition: all 0.2s ease;
+box-shadow: 0 4px 12px rgba(16, 91, 216, 0.3);
+margin-bottom: 2em;
 }

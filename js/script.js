@@ -123,9 +123,9 @@ function openModal(image) {
   // openModal call may have replaced it with a different element via outerHTML
   modalImage = document.getElementById('modalImage');
 
-  // Videos need an embedded iframe instead of an img tag
+  // Videos need a link instead of an img tag, since the APOD url is a YouTube embed link
   if (image.media_type === 'video') {
-    modalImage.outerHTML = `<iframe id="modalImage" src="${image.url}" frameborder="0" allowfullscreen></iframe>`;
+    modalImage.outerHTML = `<a id="modalImage" target="_blank" class="video_link" href="${image.url}">Click Here</a>`;
   } else {
     modalImage.outerHTML = `<img id="modalImage" src="${image.url}" alt="${image.title}" />`;
   }
