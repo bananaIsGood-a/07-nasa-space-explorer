@@ -15,7 +15,7 @@ const gallery = document.getElementById('gallery');
 // Find the modal elements
 const modal = document.getElementById('modal');
 const modalClose = document.getElementById('modalClose');
-const modalImage = document.getElementById('modalImage');
+let modalImage = document.getElementById('modalImage');
 const modalTitle = document.getElementById('modalTitle');
 const modalDate = document.getElementById('modalDate');
 const modalExplanation = document.getElementById('modalExplanation');
@@ -62,11 +62,23 @@ function displayGallery(images) {
     const item = document.createElement('div');
     item.classList.add('gallery-item');
 
-    item.innerHTML = `
-      <img src="${image.url}" alt="${image.title}" />
-      <p><strong>${image.title}</strong></p>
-      <p>${image.date}</p>
-    `;
+    // Some entries are videos instead of images, so we handle them differently
+    if (image.media_type === 'video') {
+      item.innerHTML = `
+        <div class="video-placeholder">
+          <div class="video-icon">▶️</div>
+          <p>This entry is a video</p>
+        </div>
+        <p><strong>${image.title}</strong></p>
+        <p>${image.date}</p>
+      `;
+    } else {
+      item.innerHTML = `
+        <img src="${image.url}" alt="${image.title}" />
+        <p><strong>${image.title}</strong></p>
+        <p>${image.date}</p>
+      `;
+    }
 
     // When this item is clicked, open the modal with its full details
     item.addEventListener('click', () => {
@@ -77,10 +89,22 @@ function displayGallery(images) {
   });
 }
 
-// Fill in the modal with the clicked image's details and show it
+// Fill in the modal with the clicked image's (or video's) details and show it
 function openModal(image) {
-  modalImage.src = image.url;
-  modalImage.alt = image.title;
+  // Always grab the current modalImage element fresh, since a previous
+  // openModal call may have replaced it with a different element via outerHTML
+  modalImage = document.getElementById('modalImage');
+
+  // Videos need an embedded iframe instead of an img tag
+  if (image.media_type === 'video') {
+    modalImage.outerHTML = `<iframe id="modalImage" src="${image.url}" frameborder="0" allowfullscreen></iframe>`;
+  } else {
+    modalImage.outerHTML = `<img id="modalImage" src="${image.url}" alt="${image.title}" />`;
+  }
+
+  // Re-select modalImage again since outerHTML just replaced it in the DOM
+  modalImage = document.getElementById('modalImage');
+
   modalTitle.textContent = image.title;
   modalDate.textContent = image.date;
   modalExplanation.textContent = image.explanation;
