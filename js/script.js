@@ -12,6 +12,14 @@ setupDateInputs(startInput, endInput);
 const getImagesButton = document.querySelector('.filters button');
 const gallery = document.getElementById('gallery');
 
+// Find the modal elements
+const modal = document.getElementById('modal');
+const modalClose = document.getElementById('modalClose');
+const modalImage = document.getElementById('modalImage');
+const modalTitle = document.getElementById('modalTitle');
+const modalDate = document.getElementById('modalDate');
+const modalExplanation = document.getElementById('modalExplanation');
+
 // Your NASA API key
 const apiKey = 'deCbWWW1NivCQALy3KbDPEgz4agB3gg62mKNDA0i';
 
@@ -47,6 +55,34 @@ function displayGallery(images) {
       <p>${image.date}</p>
     `;
 
+    // When this item is clicked, open the modal with its full details
+    item.addEventListener('click', () => {
+      openModal(image);
+    });
+
     gallery.appendChild(item);
   });
 }
+
+// Fill in the modal with the clicked image's details and show it
+function openModal(image) {
+  modalImage.src = image.url;
+  modalImage.alt = image.title;
+  modalTitle.textContent = image.title;
+  modalDate.textContent = image.date;
+  modalExplanation.textContent = image.explanation;
+
+  modal.classList.remove('hidden');
+}
+
+// Close the modal when the close button is clicked
+modalClose.addEventListener('click', () => {
+  modal.classList.add('hidden');
+});
+
+// Close the modal when clicking outside the modal content
+modal.addEventListener('click', (event) => {
+  if (event.target === modal) {
+    modal.classList.add('hidden');
+  }
+});
