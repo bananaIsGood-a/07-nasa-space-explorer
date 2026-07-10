@@ -12,6 +12,9 @@ setupDateInputs(startInput, endInput);
 const getImagesButton = document.querySelector('.filters button');
 const gallery = document.getElementById('gallery');
 
+// Find the space fact container
+const spaceFact = document.getElementById('spaceFact');
+
 // Find the modal elements
 const modal = document.getElementById('modal');
 const modalClose = document.getElementById('modalClose');
@@ -22,6 +25,31 @@ const modalExplanation = document.getElementById('modalExplanation');
 
 // Your NASA API key
 const apiKey = 'deCbWWW1NivCQALy3KbDPEgz4agB3gg62mKNDA0i';
+
+// A list of fun space facts to show above the gallery
+const spaceFacts = [
+  "A day on Venus is longer than a year on Venus.",
+  "Neutron stars can spin at a rate of 600 rotations per second.",
+  "There are more stars in the universe than grains of sand on Earth.",
+  "The footprints on the Moon will stay there for millions of years.",
+  "One million Earths could fit inside the Sun.",
+  "Space is completely silent because there's no atmosphere to carry sound.",
+  "The Sun accounts for 99.8% of the mass in our solar system.",
+  "A year on Mercury is just 88 Earth days long.",
+  "Saturn's rings are made mostly of ice and rock.",
+  "The largest known star, UY Scuti, is over 1,700 times the size of the Sun."
+];
+
+// Show a random space fact when the page loads
+function showRandomSpaceFact() {
+  const randomIndex = Math.floor(Math.random() * spaceFacts.length);
+  const fact = spaceFacts[randomIndex];
+
+  spaceFact.innerHTML = `<p>💡 Did You Know? ${fact}</p>`;
+}
+
+// Run this once when the page loads
+showRandomSpaceFact();
 
 // When the button is clicked, fetch APOD data for the selected date range
 getImagesButton.addEventListener('click', () => {

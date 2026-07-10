@@ -247,3 +247,14 @@ iframe#modalImage {
   margin-bottom: 15px;
   border-radius: 4px;
 }
+
+/* Random space fact banner */
+.space-fact {
+  background-color: #e8f0fe;
+  border-left: 4px solid #666;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  font-size: 15px;
+  color: #333;
+}
